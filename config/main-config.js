@@ -3,7 +3,7 @@
 const config = require('config');
 const debug = require('debug')('vidly:config');
 const logger = require('./logger');
-const morgan = require ('morgan');
+
 
 function mainConfig() {
     // make sure the auth will work
@@ -17,6 +17,7 @@ function mainConfig() {
 
 function initMorgan(app) {
     if(app.get('env') === 'development') {
+        const morgan = require ('morgan');
         app.use(morgan('tiny'));
         debug('morgan enable...')
     }
