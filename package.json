@@ -13,6 +13,7 @@
   "author": "javier",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "^4.4.2",
     "bcrypt": "^3.0.2",
     "compression": "^1.7.3",
     "config": "^2.0.1",
@@ -25,9 +26,7 @@
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
-    "mongoose": "^5.3.7",
-    "winston": "^2.4.4",
-    "winston-loggly-bulk": "^2.0.3"
+    "mongoose": "^5.3.7"
   },
   "devDependencies": {
     "jest": "^23.6.0",

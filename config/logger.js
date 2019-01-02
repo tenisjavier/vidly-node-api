@@ -1,16 +1,25 @@
-// @desc logger is in charge for logging error
-require('express-async-errors');
-const winston = require('winston');
-require('winston-loggly-bulk');
+// @desc logger is in charge for logging error: Sentry.io
+require("express-async-errors");
 
-winston.add(winston.transports.File, { filename: 'logfile.log' } );
-winston.add(winston.transports.Loggly, {
-  inputToken: "9e1488c3-e3ea-42d4-b1f7-e8e2354a52e4",
-  subdomain: "tenisjavier",
-});  
-// The logger handle the uncaught exceptions but for promises we need this
-process.on('unhandledRejection', (ex) => {
-    throw ex
+const Sentry = require("@sentry/node");
+Sentry.init({
+    dsn: "https://1f402e1c78b64577ae2effa527c33979@sentry.io/1362323"
 });
 
-module.exports = winston;
+function logError(err) {
+    Sentry.captureException(err);
+}
+
+function captureMessage(msg) {
+    Sentry.captureMessage(msg);
+}
+
+// The logger handle the uncaught exceptions but for promises we need this
+process.on("unhandledRejection", ex => {
+    throw ex;
+});
+
+module.exports = {
+    error: logError,
+    info: captureMessage
+};
