@@ -26,7 +26,10 @@ async function createUser(body) {
 
     // validate if user does not exist.
     let user = await User.findOne({ email: body.email });
-    if (user) return { error: "User already exist with that email." };
+    if (user) {
+        debug("User already exist with that email");
+        return { error: "User already exist with that email." };
+    }
 
     try {
         user = new User(_.pick(body, ["name", "email", "password"]));

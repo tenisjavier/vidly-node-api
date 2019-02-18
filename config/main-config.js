@@ -1,9 +1,10 @@
-// @desc    main config module for env variables, dev: morgan.
+// @desc    main config module for env variables, dev: morgan. CORS
 //          Middleware used in production. Helmet for security, compression for compression.
 const helmet = require("helmet");
 const compression = require("compression");
 const config = require("config");
 const debug = require("debug")("vidly:config");
+const cors = require("cors");
 
 // @desc    check if private key is set
 function checkPrivateKey() {
@@ -30,11 +31,18 @@ function productionSetup(app) {
     debug("Production Setup completed");
 }
 
+// @desc    enable CORS
+function enableCORS(app) {
+    app.use(cors());
+    debug("CORS enabled");
+}
+
 // @desc    init trigger all config functions
 function init(app) {
     checkPrivateKey();
     developmentSetup(app);
     productionSetup(app);
+    enableCORS(app);
 }
 
 module.exports.init = init;

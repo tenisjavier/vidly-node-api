@@ -16,12 +16,14 @@ router.get("/me", auth, async (req, res) => {
 
 // @desc    insert a new user to the db
 // @access  admin
-router.post("/", [auth, admin], async (req, res) => {
+router.post("/", async (req, res) => {
     const result = await userController.createUser(req.body);
     if (result.error) return res.status(400).send(result.error);
     const token = result.generateAuthToken();
 
-    res.header("x-auth-token", token).send(_.pick(result, ["name", "email"]));
+    res.header("x-auth-token", token)
+        .header("access-control-expose-headers", "x-auth-token")
+        .send(_.pick(result, ["name", "email"]));
 });
 
 module.exports = router;

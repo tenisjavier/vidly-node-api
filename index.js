@@ -17,7 +17,7 @@ config.init(app);
 routes.init(app);
 
 // PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const server = app.listen(port, () => {
     console.log(`Listening to port ${port}...`);
 });
